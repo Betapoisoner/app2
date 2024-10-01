@@ -36,8 +36,10 @@
                             <img [src]="product.imageUrl" *ngIf="showImage" alt="" [title]="product.desc | uppercase" />
                         </td>
                         <td>{{ product.desc }}</td>
-                        <td>{{ product.price | currency:'EUR' }}</td>
-                        <td>{{ product.avail | date:"dd/MM/y" }}</td>
+                        <td>
+                            {{ product.price  | currency:'EUR':'symbol':'.0-2':'es' }}
+                        </td>
+                        <td>{{ product.avail | date : "dd/MM/y" }}</td>
                     </tr>
                 </tbody>
             </table>
