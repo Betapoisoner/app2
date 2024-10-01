@@ -8,6 +8,7 @@ import { Product } from '../interfaces/product';
 })
 export class ProductListComponent {
   showImage = true;
+  filterSearch: any;
   toggleImage() {
     this.showImage = !this.showImage;
   }

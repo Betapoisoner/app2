@@ -1,12 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
+import { Product } from '../interfaces/product'; // No olvides el import
 @Pipe({
-  name: 'productFilter'
+  name: 'productFilter',
 })
 export class ProductFilterPipe implements PipeTransform {
-
-  transform(value: any, args?: any): any {
-    return null;
+  transform(products: Product[], filterBy: string): Product[] {
+    const filter = filterBy ? filterBy.toLocaleLowerCase() : null;
+    if (filter) {
+      return products.filter((prod) =>
+        prod.desc.toLocaleLowerCase().includes(filter)
+      );
+    }
+    return products;
   }
-
 }
