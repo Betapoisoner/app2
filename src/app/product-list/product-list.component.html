@@ -5,12 +5,20 @@
     <div class="card-block">
         <form class="form p-3 border-bottom">
             <div class="form-group row">
-                <label class="col-form-label col-sm-2 text-sm-end" for="filterDesc">Filtro:</label>
+                <label class="col-form-label col-sm-2 text-sm-end" for="filterDesc">Filtro Nombre:</label>
                 <div class="col-sm-5">
                     <input type="text" [(ngModel)]="filterSearch" class="form-control" name="filterDesc" id="filterDesc" placeholder="Filtro..." />
                 </div>
                 <label class="col-form-label col-sm-5">
-                    Filtrando por: {{ filterSearch }}</label>
+                    Filtrando por nombre: {{ filterSearch }}</label>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-sm-2 text-sm-end" for="filterDesc">Filtro precio:</label>
+                <div class="col-sm-5">
+                    <input type="number" [(ngModel)]="filterSearchPrice" class="form-control" name="filterDesc" id="filterDesc" placeholder="Filtro..." />
+                </div>
+                <label class="col-form-label col-sm-5">
+                    Filtrando por precio: {{ filterSearchPrice }}</label>
             </div>
         </form>
         <div class="table-responsive" *ngIf="products && products.length > 0">
@@ -31,13 +39,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let product of products | productFilter : filterSearch">
+                    <tr *ngFor="
+              let product of products
+                | productFilter : filterSearch
+                | productFilterPrice : filterSearchPrice
+            ">
                         <td>
                             <img [src]="product.imageUrl" *ngIf="showImage" alt="" [title]="product.desc | uppercase" />
                         </td>
                         <td>{{ product.desc }}</td>
                         <td>
-                            {{ product.price  | currency:'EUR':'symbol':'.0-2':'es' }}
+                            {{ product.price | currency : "EUR" : "symbol" : ".0-2" : "es" }}
                         </td>
                         <td>{{ product.avail | date : "dd/MM/y" }}</td>
                     </tr>
