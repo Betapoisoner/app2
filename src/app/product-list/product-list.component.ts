@@ -34,5 +34,4 @@ export class ProductListComponent {
       rating: 4,
     },
   ];
-  constructor() {}
 }

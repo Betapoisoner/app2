@@ -21,40 +21,17 @@
                     Filtrando por precio: {{ filterSearchPrice }}</label>
             </div>
         </form>
-        <div class="table-responsive" *ngIf="products && products.length > 0">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>
-                            <button class="btn btn-sm" [ngClass]="{
-                  'btn-danger': showImage,
-                  'btn-primary': !showImage
-                }" (click)="toggleImage()">
-                                {{ showImage ? "Ocultar" : "Mostrar" }} imagen
-                            </button>
-                        </th>
-                        <th>{{ headers.desc }}</th>
-                        <th>{{ headers.price }}</th>
-                        <th>{{ headers.avail }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="
-              let product of products
-                | productFilter : filterSearch
-                | productFilterPrice : filterSearchPrice
-            ">
-                        <td>
-                            <img [src]="product.imageUrl" *ngIf="showImage" alt="" [title]="product.desc | uppercase" />
-                        </td>
-                        <td>{{ product.desc }}</td>
-                        <td>
-                            {{ product.price | currency : "EUR" : "symbol" : ".0-2" : "es" }}
-                        </td>
-                        <td>{{ product.avail | date : "dd/MM/y" }}</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div *ngIf="products && products.length">
+            <div class="row headers g-0">
+                <div class="col-2">
+                    <button class="btn btn-sm" [ngClass]="{'btn-danger': showImage, 'btn-primary': !showImage}" (click)="toggleImage()">
+                        {{showImage?'Hide':'Show'}} images
+                    </button></div>
+                <div class="col-4">{{headers.desc}}</div>
+                <div class="col">{{headers.price}}</div>
+                <div class="col">{{headers.avail}}</div>
+            </div>
+            <product-item [product]="product" [showImage]="showImage" class="row g-0" *ngFor=" let product of products | productFilter : filterSearch | productFilterPrice : filterSearchPrice "></product-item>
         </div>
     </div>
 </div>
