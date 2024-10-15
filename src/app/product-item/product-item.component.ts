@@ -7,6 +7,9 @@ import { Component, Input } from '@angular/core';
 })
 export class ProductItemComponent {
   @Input() product!: Product;
-  @Input() showImage!: boolean; 
-  
+  @Input() showImage!: boolean;
+
+  changeRating(rating: number) {
+    this.product.rating = rating;
+    }
 }

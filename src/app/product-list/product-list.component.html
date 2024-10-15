@@ -24,14 +24,20 @@
         <div *ngIf="products && products.length">
             <div class="row headers g-0">
                 <div class="col-2">
-                    <button class="btn btn-sm" [ngClass]="{'btn-danger': showImage, 'btn-primary': !showImage}" (click)="toggleImage()">
-                        {{showImage?'Hide':'Show'}} images
-                    </button></div>
-                <div class="col-4">{{headers.desc}}</div>
-                <div class="col">{{headers.price}}</div>
-                <div class="col">{{headers.avail}}</div>
+                    <button class="btn btn-sm" [ngClass]="{ 'btn-danger': showImage, 'btn-primary': !showImage }" (click)="toggleImage()">
+                        {{ showImage ? "Hide" : "Show" }} images
+                    </button>
+                </div>
+                <div class="col-4">{{ headers.desc }}</div>
+                <div class="col">{{ headers.price }}</div>
+                <div class="col">{{ headers.avail }}</div>
+                <div class="col">Ratings</div>
             </div>
-            <product-item [product]="product" [showImage]="showImage" class="row g-0" *ngFor=" let product of products | productFilter : filterSearch | productFilterPrice : filterSearchPrice "></product-item>
+            <product-item [product]="product" [showImage]="showImage" class="row g-0" *ngFor="
+          let product of products
+            | productFilter : filterSearch
+            | productFilterPrice : filterSearchPrice
+        "></product-item>
         </div>
     </div>
 </div>
