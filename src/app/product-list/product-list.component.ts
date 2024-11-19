@@ -16,10 +16,27 @@ export class ProductListComponent implements OnInit {
   }
   image = 'Image';
   title = "My product's list";
-  headers = { desc: 'Product', price: 'Price', avail: 'Available' };
+  headers = { description: 'Product', price: 'Price', avail: 'Available' };
   products: Product[] = [];
   constructor(private productsService: ProductService) {}
+  deleteProduct(productId: number) {
+    this.productsService.deleteProduct(productId).subscribe({
+      next: () =>
+        (this.products = this.products.filter(
+          (product) => product.id !== productId
+        )),
+      error: (error) => console.error(error),
+      complete: () => console.log('Producto Borrado - id: ' + productId),
+    });
+  }
+  getProducts() {
+    this.productsService.getProducts().subscribe({
+      next: (prods) => (this.products = prods), // Success function
+      error: (error) => console.error(error), // Error function (optional)
+      complete: () => console.log('Products loaded'), // Finally function (optional)
+    });
+  }
   ngOnInit() {
-    this.products = this.productsService.getProducts();
+    this.getProducts();
   }
 }

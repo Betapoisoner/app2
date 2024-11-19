@@ -8,7 +8,7 @@ export class ProductFilterPipe implements PipeTransform {
     const filter = filterBy ? filterBy.toLocaleLowerCase() : null;
     if (filter) {
       return products.filter((prod) =>
-        prod.desc.toLocaleLowerCase().includes(filter)
+        prod.description.toLocaleLowerCase().includes(filter)
       );
     }
     return products;

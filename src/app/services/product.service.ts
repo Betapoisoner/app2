@@ -1,27 +1,43 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../interfaces/product';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, map, Observable, throwError } from 'rxjs';
+import {
+  ResponseRating,
+  ResponseProducts,
+  ResponseProduct,
+} from '../interfaces/responses';
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  getProducts(): Product[] {
-    return [
-      {
-        id: 1,
-        desc: 'SSD hard drive',
-        avail: '2016-10-03',
-        price: 75,
-        imageUrl: 'assets/ssd.jpg',
-        rating: 5,
-      },
-      {
-        id: 2,
-        desc: 'LGA1151 Motherboard',
-        avail: '2016-09-15',
-        price: 96.95,
-        imageUrl: 'assets/motherboard.jpg',
-        rating: 4,
-      },
-    ];
+  private productURL = 'http://localhost:3000';
+
+  constructor(private http: HttpClient) {}
+  deleteProduct(productId: number) {
+    const api = '/api/tutorial/producte';
+    return this.http.delete(`${this.productURL}${api}/${productId}/delete`);
+  }
+  changeRating(productId: number, rating: number): Observable<number> {
+    const api = '/api/tutorial/producte';
+    return this.http
+      .put<ResponseRating>(`${this.productURL}${api}/${productId}/update`, {
+        rating,
+      })
+      .pipe(map((resp) => resp.rating));
+  }
+  getProducts(): Observable<Product[]> {
+    const api = '/api/tutorial/producte/getproductes';
+    return this.http.get<ResponseProducts>(this.productURL + api).pipe(
+      map((response) => response.products),
+      catchError((resp: HttpErrorResponse) => {
+        return throwError(
+          () =>
+            new Error(
+              `Error obteniendo productos. Código de servidor: ${resp.status}. Mensaje: ${resp.message}`
+            )
+        );
+      })
+    );
   }
 }

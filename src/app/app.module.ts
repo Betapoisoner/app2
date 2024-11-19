@@ -8,6 +8,7 @@ import { ProductFilterPipe } from './pipes/product-filter.pipe';
 import { FormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import { ProductFilterPricePipe } from './pipes/product-filter-price.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 import localeEs from '@angular/common/locales/es';
 import { ProductItemComponent } from './product-item/product-item.component';
@@ -23,7 +24,7 @@ registerLocaleData(localeEs, 'es');
     ProductItemComponent,
     StarRatingComponent,
   ],
-  imports: [BrowserModule, FormsModule],
+  imports: [BrowserModule, FormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })

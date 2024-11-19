@@ -15,7 +15,7 @@
             <div class="form-group row">
                 <label class="col-form-label col-sm-2 text-sm-end" for="filterDesc">Filtro precio:</label>
                 <div class="col-sm-5">
-                    <input type="number" [(ngModel)]="filterSearchPrice" class="form-control" name="filterDesc" id="filterDesc" placeholder="Filtro..." />
+                    <input type="number" [(ngModel)]="filterSearchPrice" class="form-control" name="filterPrice" id="filterPrice" placeholder="Filtro..." />
                 </div>
                 <label class="col-form-label col-sm-5">
                     Filtrando por precio: {{ filterSearchPrice }}</label>
@@ -28,12 +28,14 @@
                         {{ showImage ? "Hide" : "Show" }} images
                     </button>
                 </div>
-                <div class="col-4">{{ headers.desc }}</div>
+                <div class="col-4">{{ headers.description }}</div>
                 <div class="col">{{ headers.price }}</div>
                 <div class="col">{{ headers.avail }}</div>
                 <div class="col">Ratings</div>
+
+                <div class="col"></div>
             </div>
-            <product-item [product]="product" [showImage]="showImage" class="row g-0" *ngFor="
+            <product-item [product]="product" [showImage]="showImage" (delete)="deleteProduct($event)" class="row g-0" *ngFor="
           let product of products
             | productFilter : filterSearch
             | productFilterPrice : filterSearchPrice
