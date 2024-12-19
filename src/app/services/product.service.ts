@@ -11,24 +11,22 @@ import {
   providedIn: 'root',
 })
 export class ProductService {
-  private productURL = 'http://localhost:3000';
-
   constructor(private http: HttpClient) {}
   deleteProduct(productId: number) {
-    const api = '/api/tutorial/producte';
-    return this.http.delete(`${this.productURL}${api}/${productId}/delete`);
+    const api = 'api/tutorial/producte';
+    return this.http.delete(`${api}/${productId}/delete`);
   }
   changeRating(productId: number, rating: number): Observable<number> {
-    const api = '/api/tutorial/producte';
+    const api = 'api/tutorial/producte';
     return this.http
-      .put<ResponseRating>(`${this.productURL}${api}/${productId}/update`, {
+      .put<ResponseRating>(`${api}/${productId}/update`, {
         rating,
       })
       .pipe(map((resp) => resp.rating));
   }
   getProducts(): Observable<Product[]> {
-    const api = '/api/tutorial/producte/getproductes';
-    return this.http.get<ResponseProducts>(this.productURL + api).pipe(
+    const api = 'api/tutorial/producte/getproductes';
+    return this.http.get<ResponseProducts>(api).pipe(
       map((response) => response.products),
       catchError((resp: HttpErrorResponse) => {
         return throwError(

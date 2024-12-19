@@ -12,14 +12,16 @@
 </div>
 <div class="col">{{ product.available | date : "dd/MM/y" }}</div>
 <div class="col">
-  <star-rating
-    [rating]="product.rating"
-    (ratingChanged)="changeRating($event)"
-  ></star-rating>
+  <star-rating [rating]="product.rating" (ratingChanged)="changeRating($event)">
+  </star-rating>
 </div>
 
 <div class="col">
-  <button type="button" class="btn btn-danger" (click)="deleteProduct()">
+  <button
+    type="button"
+    class="btn btn-danger"
+    (click)="openConfirmationPopup()"
+  >
     Eliminar
   </button>
 </div>
